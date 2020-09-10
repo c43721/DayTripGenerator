@@ -35,19 +35,22 @@ function generateRandomNumberInRange(low, high) {
     return Math.floor(Math.random() * (high - low + 1)) + low;
 }
 
+function returnStringResponse(destination, restaurant, transportation, entertainment) {
+    return `You will go to ${destination} by ${restaurant}, while you relax by ${transportation} and eating at ${entertainment}`
+}
 
 let chosenDestination = getRandomDestination();
 let chosenRestaurant = getRandomRestaurant();
 let chosenTransportationMethod = getRandomModeOfTransportation();
 let chosenEntertainment = getRandomEntertainment();
 
-let resultFromPrompt = confirmResultWithUser(`You will go to ${chosenDestination} by ${chosenTransportationMethod}, while you relax by ${chosenEntertainment} and eating at ${chosenRestaurant}`);
+let resultFromPrompt = confirmResultWithUser(returnStringResponse(chosenDestination, chosenRestaurant, chosenTransportationMethod, chosenEntertainment));
 
 while (!resultFromPrompt) {
     let whichPropertiesToRoll = promptUserToReplace();
 
     if (whichPropertiesToRoll) {
-        let userSelectionArray = whichPropertiesToRoll.split(" ")
+        let userSelectionArray = whichPropertiesToRoll.split(" ");
         for (let i = 0; i < userSelectionArray.length; i++) {
             if (userSelectionArray[i] === "destination") {
                 chosenDestination = getRandomDestination();
@@ -59,8 +62,8 @@ while (!resultFromPrompt) {
                 chosenEntertainment = getRandomEntertainment();
             }
         }
-        resultFromPrompt = confirmResultWithUser(`You will go to ${chosenDestination} by ${chosenTransportationMethod}, while you relax by ${chosenEntertainment} and eating at ${chosenRestaurant}`);
+        resultFromPrompt = confirmResultWithUser(returnStringResponse(chosenDestination, chosenRestaurant, chosenTransportationMethod, chosenEntertainment));
     }
 }
 
-console.log(`You will go to ${chosenDestination} by ${chosenTransportationMethod}, while you relax by ${chosenEntertainment} and eating at ${chosenRestaurant}`);
+console.log(returnStringResponse(chosenDestination, chosenRestaurant, chosenTransportationMethod, chosenEntertainment));
