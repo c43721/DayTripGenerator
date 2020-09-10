@@ -58,8 +58,8 @@ while (!resultFromPrompt) {
             } else if (userSelectionArray[i] === "entertainment") {
                 lchosenEntertainment = getRandomEntertainment();
             }
-            resultFromPrompt = confirmResultWithUser(`You will go to ${chosenDestination} by ${chosenTransportationMethod}, while you relax by ${chosenEntertainment} and eating at ${chosenRestaurant}`);
         }
+        resultFromPrompt = confirmResultWithUser(`You will go to ${chosenDestination} by ${chosenTransportationMethod}, while you relax by ${chosenEntertainment} and eating at ${chosenRestaurant}`);
     }
 }
 
