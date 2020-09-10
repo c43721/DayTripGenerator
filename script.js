@@ -11,23 +11,18 @@ function getRandomDestination() {
 
 function getRandomRestaurant() {
     return restaurants[generateRandomNumberInRange(0, restaurants.length - 1)];
-
 }
 
 function getRandomModeOfTransportation() {
     return transportationList[generateRandomNumberInRange(0, transportationList.length - 1)];
-
 }
 
 function getRandomEntertainment() {
     return entertainmentList[generateRandomNumberInRange(0, entertainmentList.length - 1)];
-
 }
 
 function confirmResultWithUser(message) {
-    let responseFromUser = confirm(message);
-
-    return responseFromUser;
+    return confirm(message);
 }
 
 function generateRandomNumberInRange(low, high) {
