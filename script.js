@@ -56,7 +56,7 @@ while (!resultFromPrompt) {
             } else if (userSelectionArray[i] === "transportation") {
                 chosenTransportationMethod = getRandomModeOfTransportation();
             } else if (userSelectionArray[i] === "entertainment") {
-                lchosenEntertainment = getRandomEntertainment();
+                chosenEntertainment = getRandomEntertainment();
             }
         }
         resultFromPrompt = confirmResultWithUser(`You will go to ${chosenDestination} by ${chosenTransportationMethod}, while you relax by ${chosenEntertainment} and eating at ${chosenRestaurant}`);
