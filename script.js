@@ -31,7 +31,7 @@ function confirmResultWithUser(message) {
 }
 
 function generateRandomNumberInRange(low, high) {
-    return Math.round(Math.floor(Math.random() * (high - low + 1)) + low);
+    return Math.floor(Math.random() * (high - low + 1)) + low;
 }
 
 function generateRandomResult() {
