@@ -1,7 +1,7 @@
 "use strict";
 
 let destinations = ["Mexico", "France", "Germany", "UK"];
-let restaurants = ["1", "2", "3", "4", "5"];
+let restaurants = ["Hof Van Cleve", "Vendôme", "L'Astrance", "Azurmendi", "De Librije"]; //restaurant names in europe
 let transportationList = ["Car", "Train", "Airplane", "Boat"];
 let entertainmentList = ["Boating", "Snorkling", "Mountaineering", "Hiking", "Swimming"];
 
