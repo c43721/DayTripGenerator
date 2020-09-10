@@ -5,6 +5,8 @@ let restaurants = ["Hof Van Cleve", "Vendôme", "L'Astrance", "Azurmendi", "De L
 let transportationList = ["Car", "Train", "Airplane", "Boat"];
 let entertainmentList = ["Boating", "Snorkling", "Mountaineering", "Hiking", "Swimming"];
 
+let selectionOptions = ["destination", "restaurant", "transportation", "entertainment"];
+
 function getRandomDestination() {
     return destinations[generateRandomNumberInRange(0, destinations.length - 1)];
 }
@@ -25,22 +27,40 @@ function confirmResultWithUser(message) {
     return confirm(message);
 }
 
+function promptUserToReplace() {
+    return prompt(`Which selections would you like to replace? Options are ${selectionOptions.join(', ')}, follow each one with a space.`);
+}
+
 function generateRandomNumberInRange(low, high) {
     return Math.floor(Math.random() * (high - low + 1)) + low;
 }
 
-function generateRandomResult() {
-    let chosenDestination = getRandomDestination();
-    let chosenRestaurant = getRandomRestaurant();
-    let chosenTransportationMethod = getRandomModeOfTransportation();
-    let chosenEntertainment = getRandomEntertainment();
 
-    return `You will go to ${chosenDestination} by ${chosenTransportationMethod}, while you relax by ${chosenEntertainment} and eating at ${chosenRestaurant}`
-}
+let chosenDestination = getRandomDestination();
+let chosenRestaurant = getRandomRestaurant();
+let chosenTransportationMethod = getRandomModeOfTransportation();
+let chosenEntertainment = getRandomEntertainment();
 
-let resultFromPrompt = false;
+let resultFromPrompt = confirmResultWithUser(`You will go to ${chosenDestination} by ${chosenTransportationMethod}, while you relax by ${chosenEntertainment} and eating at ${chosenRestaurant}`);
+
 while (!resultFromPrompt) {
-    let resultString = generateRandomResult()
-    resultFromPrompt = confirmResultWithUser(resultString);
-    if (resultFromPrompt) console.log(resultString);
+    let whichPropertiesToRoll = promptUserToReplace();
+
+    if (whichPropertiesToRoll) {
+        let userSelectionArray = whichPropertiesToRoll.split(" ")
+        for (let i = 0; i < userSelectionArray.length; i++) {
+            if (userSelectionArray[i] === "destination") {
+                chosenDestination = getRandomDestination();
+            } else if (userSelectionArray[i] === "restaurant") {
+                chosenRestaurant = getRandomRestaurant();
+            } else if (userSelectionArray[i] === "transportation") {
+                chosenTransportationMethod = getRandomModeOfTransportation();
+            } else if (userSelectionArray[i] === "entertainment") {
+                lchosenEntertainment = getRandomEntertainment();
+            }
+            resultFromPrompt = confirmResultWithUser(`You will go to ${chosenDestination} by ${chosenTransportationMethod}, while you relax by ${chosenEntertainment} and eating at ${chosenRestaurant}`);
+        }
+    }
 }
+
+console.log(`You will go to ${chosenDestination} by ${chosenTransportationMethod}, while you relax by ${chosenEntertainment} and eating at ${chosenRestaurant}`);
