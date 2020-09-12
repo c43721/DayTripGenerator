@@ -1,69 +1,71 @@
 "use strict";
+let responseElement = document.getElementById("userSelection");
+let randomButtonElement = document.getElementById("randomize");
 
-let destinations = ["Mexico", "France", "Germany", "UK"];
-let restaurants = ["Hof Van Cleve", "Vendôme", "L'Astrance", "Azurmendi", "De Librije"]; //restaurant names in europe
-let transportationList = ["Car", "Train", "Airplane", "Boat"];
-let entertainmentList = ["Boating", "Snorkling", "Mountaineering", "Hiking", "Swimming"];
+let destinationButton = document.getElementById("destination");
+let restaurantButton = document.getElementById("restaurant");
+let transportationButton = document.getElementById("transportation");
+let entertainmentButton = document.getElementById("entertainment");
+
+randomButtonElement.addEventListener("click", generateRandomString);
+
+let destinations = ["Mexico", "France", "Germany", "UK",  "Spain", "India", "China", "Canada", "Russia", "Portugal", "Australia"];
+let restaurants = ["Hof Van Cleve", "Vendôme", "L'Astrance", "Azurmendi", "De Librije", "a local diner"]; //restaurant names in europe
+let transportationList = ["Car", "Train", "Airplane", "Boat", "UFO", "foot", "Bike"];
+let entertainmentList = ["Boating", "Snorkling", "Hiking", "Swimming", "playing soccer", "playing football", "learning how to play the piano", "throwing a frisbee", "visiting a zoo"];
 
 let selectionOptions = ["destination", "restaurant", "transportation", "entertainment"];
 
-function getRandomDestination() {
-    return destinations[generateRandomNumberInRange(0, destinations.length - 1)];
+destinationButton.addEventListener("click", () => changeSpecificSelection("destination"));
+restaurantButton.addEventListener("click", () => changeSpecificSelection("restaurant"));
+transportationButton.addEventListener("click", () => changeSpecificSelection("transportation"));
+entertainmentButton.addEventListener("click", () => changeSpecificSelection("entertainment"));
+
+let chosenDestination = getRandomSelection(destinations);
+let chosenRestaurant = getRandomSelection(restaurants);
+let chosenTransportationMethod = getRandomSelection(transportationList);
+let chosenEntertainment = getRandomSelection(entertainmentList);
+
+function getRandomSelection(selection) {
+    return selection[getNumberInRange(0, selection.length - 1)]
 }
 
-function getRandomRestaurant() {
-    return restaurants[generateRandomNumberInRange(0, restaurants.length - 1)];
+function changeSpecificSelection(selection) {
+    switch (selection) {
+        case "destination":
+            chosenDestination = getRandomSelection(destinations);
+            break;
+        case "restaurant":
+            chosenRestaurant = getRandomSelection(restaurants);
+            break;
+        case "transportation":
+            chosenTransportationMethod = getRandomSelection(transportationList);
+            break;
+        case "entertainment":
+            chosenEntertainment = getRandomSelection(entertainmentList);
+            break;
+    }
+    displayToUser(chosenDestination, chosenRestaurant, chosenTransportationMethod, chosenEntertainment);
 }
 
-function getRandomModeOfTransportation() {
-    return transportationList[generateRandomNumberInRange(0, transportationList.length - 1)];
-}
-
-function getRandomEntertainment() {
-    return entertainmentList[generateRandomNumberInRange(0, entertainmentList.length - 1)];
-}
-
-function confirmResultWithUser(message) {
-    return confirm(message);
-}
-
-function promptUserToReplace() {
-    return prompt(`Which selections would you like to replace? Options are ${selectionOptions.join(', ')}, follow each one with a space.`);
-}
-
-function generateRandomNumberInRange(low, high) {
+function getNumberInRange(low, high) {
     return Math.floor(Math.random() * (high - low + 1)) + low;
 }
 
 function returnStringResponse(destination, restaurant, transportation, entertainment) {
-    return `You will go to ${destination} by ${restaurant}, while you relax by ${transportation} and eating at ${entertainment}`
+    return `How does a trip to ${destination} by ${transportation.toLowerCase()}, while you relax by ${entertainment.toLowerCase()} and eating at ${restaurant} sound?`
 }
 
-let chosenDestination = getRandomDestination();
-let chosenRestaurant = getRandomRestaurant();
-let chosenTransportationMethod = getRandomModeOfTransportation();
-let chosenEntertainment = getRandomEntertainment();
-
-let resultFromPrompt = confirmResultWithUser(returnStringResponse(chosenDestination, chosenRestaurant, chosenTransportationMethod, chosenEntertainment));
-
-while (!resultFromPrompt) {
-    let whichPropertiesToRoll = promptUserToReplace();
-
-    if (whichPropertiesToRoll) {
-        let userSelectionArray = whichPropertiesToRoll.split(" ");
-        for (let i = 0; i < userSelectionArray.length; i++) {
-            if (userSelectionArray[i] === "destination") {
-                chosenDestination = getRandomDestination();
-            } else if (userSelectionArray[i] === "restaurant") {
-                chosenRestaurant = getRandomRestaurant();
-            } else if (userSelectionArray[i] === "transportation") {
-                chosenTransportationMethod = getRandomModeOfTransportation();
-            } else if (userSelectionArray[i] === "entertainment") {
-                chosenEntertainment = getRandomEntertainment();
-            }
-        }
-        resultFromPrompt = confirmResultWithUser(returnStringResponse(chosenDestination, chosenRestaurant, chosenTransportationMethod, chosenEntertainment));
-    }
+function generateRandomString() {
+    chosenDestination = getRandomSelection(destinations);
+    chosenRestaurant = getRandomSelection(restaurants);
+    chosenTransportationMethod = getRandomSelection(transportationList);
+    chosenEntertainment = getRandomSelection(entertainmentList);
+    displayToUser(chosenDestination, chosenRestaurant, chosenTransportationMethod, chosenEntertainment);
 }
 
-console.log(returnStringResponse(chosenDestination, chosenRestaurant, chosenTransportationMethod, chosenEntertainment));
+function displayToUser(chosenDestination, chosenRestaurant, chosenTransportationMethod, chosenEntertainment) {
+    responseElement.innerText = returnStringResponse(chosenDestination, chosenRestaurant, chosenTransportationMethod, chosenEntertainment);
+}
+
+document.addEventListener("load", displayToUser(chosenDestination, chosenRestaurant, chosenTransportationMethod, chosenEntertainment));
